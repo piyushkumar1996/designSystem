@@ -1,0 +1,27 @@
+.virtualContainer {
+    height: 200px;
+    width: 600px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    margin: auto;
+}
+
+.virtualInnerContainer {
+    position: relative;
+}
+
+.virtualContent {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+.virtualItem {
+    border-bottom: 1px solid #ccc;
+}
+
+h2 {
+    text-align: center;
+    margin: 40px 0;
+}
+

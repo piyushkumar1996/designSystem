@@ -35,5 +35,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "React UI compoents",
+  "main": "index.js",
+  "devDependencies": {},
+  "keywords": [
+    "React",
+    "Machine",
+    "coding",
+    "design"
+  ],
+  "author": "Piyush",
+  "license": "ISC"
 }

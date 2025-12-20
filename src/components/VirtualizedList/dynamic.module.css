@@ -1,0 +1,29 @@
+.dynamicContainer {
+    width: 600px;
+    border: 1px solid #ccc;
+    overflow-y: scroll;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.dynamicInnerContainer {
+    position: relative;
+}
+
+.dynamicContent {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+.dynamicItem {
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.dynamicTitle {
+    text-align: center;
+    margin: 20px 0;
+}
+
