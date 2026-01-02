@@ -1,0 +1,88 @@
+import React, { useEffect, useRef, useState } from "react";
+import style from "./input.module.css";
+
+const OtpInput = ({
+  length = 6,
+  onSubmit,
+  type,
+  error,
+  resend = false,
+  timer,
+  errMsg,
+}) => {
+  const [inputField, setInputField] = useState(
+    Array.from({ length: length }, (_, i) => i)
+  );
+  const inputRef = useRef([]);
+  const [showError, setShowError] = useState(false);
+  const timerRef = useRef(null);
+
+  const resetOtpField = () => {
+    inputRef.current.forEach((input) => {
+      input.value = "";
+    });
+    inputRef.current[0].focus();
+  };
+
+  const handleChange = (e, i) => {
+    const value = e.target.value;
+
+    if (!value) return;
+
+    if (type === "number" && !/^[0-9]$/.test(value)) return;
+
+    if (i !== length - 1) {
+      inputRef.current[i + 1].focus();
+    } else {
+      let otp = parseInt(
+        inputRef.current.reduce((acc, curr) => acc + curr.value, "")
+      );
+      const submitCallBack = (result) => {
+        if (result) resetOtpField();
+        else setShowError(!result);
+      }
+      onSubmit(otp, submitCallBack);
+    }
+  };
+
+  const handleKeyDown = (e, i) => {
+    if (e.key === "backspace" && i !== 0) {
+      if (inputRef.current[i]) inputRef.current[i] = "";
+      else inputRef.current[i - 1].focus();
+    }
+  };
+
+  useEffect(() => {
+    if (!resend) return;
+
+    timerRef.current = setTimeout(() => {
+      resetOtpField();
+      clearTimeout(timerRef.current);
+    }, timer);
+
+    return () => clearTimeout(timerRef.current);
+  }, [resend]);
+
+  return (
+    <>
+      <div className={style.inputContainer}>
+        {inputField.map((item, i) => (
+          <input
+            key={i}
+            className={`${style.inputField} ${showError && style.errorField}`}
+            type={type}
+            inputMode={type === "number" ? "numerice" : undefined}
+            maxLength={1}
+            onChange={(e) => handleChange(e, i)}
+            onKeyDown={(e) => handleKeyDown(e, i)}
+            ref={(el) => (inputRef.current[i] = el)}
+            autoFocus={i === 0}
+          />
+        ))}
+      </div>
+      {showError && error(errMsg)}
+    </>
+  );
+};
+
+export default OtpInput;
