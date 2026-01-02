@@ -44,11 +44,11 @@ const Carousel = () => {
 
   const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % imagesLength);
-  }, []);
+  }, [imagesLength]);
 
   const handlePrev = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + imagesLength) % imagesLength);
-  }, []);
+  }, [imagesLength]);
 
   useEffect(() => {
     setCarouselList(list);
@@ -63,7 +63,7 @@ const Carousel = () => {
     return () => {
       if (carouselTimer.current) clearInterval(carouselTimer.current);
     };
-  }, [carouselList, autoPlay]);
+  }, [carouselList, autoPlay, handleNext]);
 
   return (
     <Context.Provider
