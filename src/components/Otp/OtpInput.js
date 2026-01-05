@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import style from "./input.module.css";
 
+/*
+  type='text' only maxLength has an impact
+  handle values other than number with regex and reset
+  key="Backspace" handle empty the field and if empty moves focus to previous field
+*/
+
 const OtpInput = ({
   length = 6,
   onSubmit,
@@ -29,7 +35,10 @@ const OtpInput = ({
 
     if (!value) return;
 
-    if (type === "number" && !/^[0-9]$/.test(value)) return;
+    if (type === "number" && !/^[0-9]$/.test(value)) {
+      e.target.value = "";
+      return;
+    }
 
     if (i !== length - 1) {
       inputRef.current[i + 1].focus();
@@ -40,15 +49,18 @@ const OtpInput = ({
       const submitCallBack = (result) => {
         if (result) resetOtpField();
         else setShowError(!result);
-      }
+      };
       onSubmit(otp, submitCallBack);
     }
   };
 
   const handleKeyDown = (e, i) => {
-    if (e.key === "backspace" && i !== 0) {
-      if (inputRef.current[i]) inputRef.current[i] = "";
-      else inputRef.current[i - 1].focus();
+    if (e.key === "Backspace" && i !== 0) {
+      if (inputRef.current[i].value) {
+        inputRef.current[i].value = "";
+      } else if (inputRef.current[i - 1]) {
+        inputRef.current[i - 1].focus();
+      }
     }
   };
 
@@ -70,8 +82,9 @@ const OtpInput = ({
           <input
             key={i}
             className={`${style.inputField} ${showError && style.errorField}`}
-            type={type}
-            inputMode={type === "number" ? "numerice" : undefined}
+            type={"text"}
+            inputMode={type === "number" ? "numeric" : undefined}
+            pattern="[0-9]*"
             maxLength={1}
             onChange={(e) => handleChange(e, i)}
             onKeyDown={(e) => handleKeyDown(e, i)}
