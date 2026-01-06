@@ -4,13 +4,16 @@ import VirtualizedList from "./components/VirtualizedList";
 import ProgressBar from "./components/ProgressBar";
 import TodoApp from "./components/TodoApp/Todo";
 import DynamicList from "./components/VirtualizedList/DynamicList";
+import SearchBar from "./components/SearchBar";
+import ModalConsumer from "./components/NestedModal/ModalConsumer";
+import { ModalContainer } from "./components/NestedModal";
+import FormComponent from "./components/DynamicForm/FormComponent";
 
 function App() {
   return (
     <div className="App">
       <h2>Design System</h2>
       <Carousel />
-      <OtpContainer />
       <VirtualizedList />
       <DynamicList />
       <ProgressBar
@@ -21,6 +24,13 @@ function App() {
         max={100}
       />
       <TodoApp />
+      <OtpContainer />
+      <ModalContainer />
+      <ModalContainer>
+        <ModalConsumer />
+      </ModalContainer>
+      <SearchBar />
+      <FormComponent />
     </div>
   );
 }
