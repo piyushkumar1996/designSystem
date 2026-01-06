@@ -7,21 +7,12 @@ import style from "./input.module.css";
   key="Backspace" handle empty the field and if empty moves focus to previous field
 */
 
-const OtpInput = ({
-  length = 6,
-  onSubmit,
-  type,
-  error,
-  resend = false,
-  timer,
-  errMsg,
-}) => {
+const OtpInput = ({ length = 6, onSubmit, type, error, errMsg }) => {
   const [inputField, setInputField] = useState(
     Array.from({ length: length }, (_, i) => i)
   );
   const inputRef = useRef([]);
   const [showError, setShowError] = useState(false);
-  const timerRef = useRef(null);
 
   const resetOtpField = () => {
     inputRef.current.forEach((input) => {
@@ -63,17 +54,6 @@ const OtpInput = ({
       }
     }
   };
-
-  useEffect(() => {
-    if (!resend) return;
-
-    timerRef.current = setTimeout(() => {
-      resetOtpField();
-      clearTimeout(timerRef.current);
-    }, timer);
-
-    return () => clearTimeout(timerRef.current);
-  }, [resend]);
 
   return (
     <>

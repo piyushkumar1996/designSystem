@@ -19,9 +19,7 @@ const OtpContainer = () => {
         error={(err) => (
           <p style={{ textAlign: "center", color: "red" }}>{err}</p>
         )}
-        resend={false}
         errMsg={"Otp is invalid"}
-        timer={30}
       />
     </div>
   );
