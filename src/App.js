@@ -1,3 +1,4 @@
+import React from 'react';
 import Carousel from "./components/Carousel";
 import OtpContainer from "./components/Otp";
 import VirtualizedList from "./components/VirtualizedList";
@@ -8,6 +9,7 @@ import SearchBar from "./components/SearchBar";
 import ModalConsumer from "./components/NestedModal/ModalConsumer";
 import { ModalContainer } from "./components/NestedModal";
 import FormComponent from "./components/DynamicForm/FormComponent";
+import Toast from "./components/Toast";
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
       </ModalContainer>
       <SearchBar />
       <FormComponent />
+      <Toast />
     </div>
   );
 }
